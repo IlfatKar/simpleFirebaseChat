@@ -1,12 +1,13 @@
-import React, { useContext, useState } from 'react'
-import { Context } from '../index'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
-import { Avatar, Button, Container, Grid, TextField } from '@material-ui/core'
-import { Loader } from './Loader'
+import React, {useContext, useState} from 'react'
+import {Context} from '../index'
+import {useAuthState} from 'react-firebase-hooks/auth'
+import {useCollectionData} from 'react-firebase-hooks/firestore'
+import {Avatar, Button, Container, Grid, TextField, Paper} from '@material-ui/core'
+import {Loader} from './Loader'
 import firebase from 'firebase/compat/app'
+
 export const Chat = () => {
-  const { auth, firestore } = useContext(Context)
+  const {auth, firestore} = useContext(Context)
   const [user] = useAuthState(auth)
   const [value, setValue] = useState('')
   const [messages, loading] = useCollectionData(
@@ -25,37 +26,35 @@ export const Chat = () => {
   }
 
   if (loading) {
-    return <Loader />
+    return <Loader/>
   }
   return (
     <Container>
       <Grid
         container
-        style={{ height: window.innerHeight - 60, marginTop: '10px' }}
+        style={{height: window.innerHeight - 60, marginTop: '10px'}}
         justifyContent={'center'}
       >
-        <div style={{ width: '80%', height: '70vh', border: '1px solid gray', overflowY: 'auto' }}>
+        <Paper className={'chat'} >
           {messages.map((message, idx) => (
-            <div
+            <Paper
+              elevation={3}
               key={idx}
+              className={'message'}
               style={{
-                margin: '10px',
-                border: user.uid === message.uId ? '2px solid green' : '2px dashed red',
                 marginLeft: user.uid === message.uId ? 'auto' : '10px',
-                width: 'fit-content',
-                padding: '5px 10px',
               }}
             >
-              <Grid container>
-                <Avatar src={message.photoURL} />
+              <Grid container style={{marginLeft: user.uid === message.uId ? 'auto' : '0'}}>
+                <Avatar src={message.photoURL} style={{display: 'inline-block', width: 30, height: 30}}/>
                 <div>{message.displayName}</div>
               </Grid>
               <div>{message.text}</div>
-            </div>
+            </Paper>
           ))}
-        </div>
+        </Paper>
 
-        <Grid container alignItems={'flex-end'} style={{ width: '80%' }} direction={'column'}>
+        <Grid container alignItems={'flex-end'} style={{width: '80%'}} direction={'column'}>
           <TextField
             value={value}
             onChange={(e) => setValue(e.target.value)}
@@ -63,7 +62,7 @@ export const Chat = () => {
             fullWidth
             maxRows={2}
           />
-          <Button onClick={sendMessage} style={{ marginTop: '5px' }} variant={'outlined'}>
+          <Button onClick={sendMessage} style={{marginTop: '5px'}} variant={'outlined'}>
             Отправить
           </Button>
         </Grid>

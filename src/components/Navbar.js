@@ -18,7 +18,7 @@ export const Navbar = () => {
             </Button>
           ) : (
             <NavLink to={LOGIN_ROUTE}>
-              <Button variant={'outlined'}>Логин</Button>
+              <Button variant={'outlined'} style={{color:'#e4e4e4', borderColor: '#aaa'}}>Логин</Button>
             </NavLink>
           )}
         </Grid>

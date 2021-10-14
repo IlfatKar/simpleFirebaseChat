@@ -4,11 +4,35 @@
   box-sizing: border-box;
 }
 
+.message {
+  margin: 10px;
+  width: fit-content;
+  padding: 10px;
+  max-width: 65%;
+}
+
+
+.message .MuiGrid-root {
+  gap: 10px;
+  margin-bottom: 5px;
+
+  width: fit-content;
+}
+
+.chat {
+  width: 80%;
+  height: 70vh;
+  border: 1px solid gray;
+  overflow-y: auto;
+}
+
+
 .lds-dual-ring {
   display: inline-block;
   width: 80px;
   height: 80px;
 }
+
 .lds-dual-ring:after {
   content: ' ';
   display: block;
@@ -20,6 +44,7 @@
   border-color: #cef transparent #cef transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
+
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);

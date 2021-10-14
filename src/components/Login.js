@@ -7,7 +7,12 @@ export const Login = () => {
 
   const login = async () => {
     const provider = new firebase.auth.GoogleAuthProvider()
-    const { user } = await auth.signInWithPopup(provider)
+    try{
+      const { user } = await auth.signInWithPopup(provider)
+    } catch (e) {
+      console.error(e)
+    }
+
   }
 
   return (
@@ -20,12 +25,12 @@ export const Login = () => {
       >
         <Grid
           container
-          style={{ width: 400, background: 'lightgray' }}
+          style={{ width: 400, background: '#383838', borderRadius: 5 }}
           alignItems={'center'}
           direction={'column'}
         >
           <Box p={5}>
-            <Button onClick={login} variant={'outlined'}>
+            <Button onClick={login} style={{color:'#e4e4e4', borderColor: '#aaa'}} variant={'outlined'}>
               Войти с помощью Google
             </Button>
           </Box>
